@@ -22,9 +22,11 @@ def ejerciciosTodos():
     try:
         if(int(op) in range(1,db.cantidadRegistros('ejercicio')+1)):
             insertSerie(op)
+            ejerciciosTodos()
     except:
         if(op == 'add'):
             db.insertEjercicio(input('Nombre:'),getGrupoMuscular(),obtenerDiaSemana(input('Día:')),input('Descanso(min):'))
+            ejerciciosTodos()
         elif(op == 'back'):
             inicioBanner()
         else:
@@ -36,9 +38,11 @@ def ejerciciosHoy():
     try:
         if(int(op) in db.idsEjerciciosHoy(hoy)):
             insertSerie(op)
+            ejerciciosHoy()
     except:
         if(op == 'add'):
             db.insertEjercicio(input('Nombre:'),getGrupoMuscular(),hoy,input('Descanso(min):'))
+            ejerciciosHoy()
         elif(op == 'back'):
             inicioBanner()
         else:
@@ -53,7 +57,6 @@ def insertSerie(op):
             pass
         else:
             break
-    ejerciciosHoy()
 inicioBanner()
 #db = DataBase()
 #db.connect()
