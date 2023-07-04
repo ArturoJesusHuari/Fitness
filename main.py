@@ -33,7 +33,7 @@ class Main:
             else:
                 self.ejerciciosTodos()
     def ejerciciosHoy(self):
-        listEjerciciosHoy=self.db.self.ejerciciosHoy(self.hoy)
+        listEjerciciosHoy=self.db.ejerciciosHoy(self.hoy)
         printEjerciciosHoy(listEjerciciosHoy)
         op = input("->")
         try:
@@ -53,7 +53,7 @@ class Main:
         while True:
             reps = int(input('rep:'))
             peso = int(input('Kgs:'))
-            self.db.self.insertSerie(op,reps,peso)
+            self.db.insertSerie(op,reps,peso)
             if(input('continue? :')=='Y'):
                 pass
             else:
