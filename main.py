@@ -1,67 +1,64 @@
 from funciones import *
-
-db = DataBase()
-db.connect()
-db.createTables()
-hoy = obtenerDiaSemanaHoy()
-def inicioBanner():
-    printBannerInicio()
-    op = int(input("->"))
-    if(op==1):
-        ejerciciosHoy()
-    elif(op==2):
-        ejerciciosTodos()
-    elif(op==4):
-        db.closeConexion
-        exit()
-    else:
-        inicioBanner()
-def ejerciciosTodos():
-    printVerEjercicios(db.allEjercicios())
-    op = input("->")
-    try:
-        if(int(op) in range(1,db.cantidadRegistros('ejercicio')+1)):
-            insertSerie(op)
-            ejerciciosTodos()
-    except:
-        if(op == 'add'):
-            db.insertEjercicio(input('Nombre:'),getGrupoMuscular(),obtenerDiaSemana(input('Día:')),input('Descanso(min):'))
-            ejerciciosTodos()
-        elif(op == 'back'):
-            inicioBanner()
+class Main:
+    def __init__(self):
+        self.db = DataBase()
+        self.db.connect()
+        self.db.createTables()
+        self.hoy = obtenerDiaSemanaHoy()
+    def inicioBanner(self):
+        printBannerInicio()
+        op = int(input("->"))
+        if(op==1):
+            self.ejerciciosHoy()
+        elif(op==2):
+            self.ejerciciosTodos()
+        elif(op==4):
+            self.db.closeConexion
+            exit()
         else:
-            ejerciciosTodos()
-def ejerciciosHoy():
-    listEjerciciosHoy=db.ejerciciosHoy(hoy)
-    printEjerciciosHoy(listEjerciciosHoy)
-    op = input("->")
-    try:
-        if(int(op) in db.idsEjerciciosHoy(hoy)):
-            insertSerie(op)
-            ejerciciosHoy()
-    except:
-        if(op == 'add'):
-            db.insertEjercicio(input('Nombre:'),getGrupoMuscular(),hoy,input('Descanso(min):'))
-            ejerciciosHoy()
-        elif(op == 'back'):
-            inicioBanner()
-        else:
-            ejerciciosHoy()
-def insertSerie(op):
-    clear()
-    while True:
-        reps = int(input('rep:'))
-        peso = int(input('Kgs:'))
-        db.insertSerie(op,reps,peso)
-        if(input('continue? :')=='Y'):
-            pass
-        else:
-            break
-inicioBanner()
-#db = DataBase()
-#db.connect()
-#db.createTables()
-#db.insertEjercicio('Press militar',1,1,3)
-#db.insertEjercicio('Press de banca',2,2,2)
-#db.insertEjercicio('Curl de biseps',0,1,2)
-#db.closeConexion()
+            self.inicioBanner()
+    def ejerciciosTodos(self):
+        printVerEjercicios(self.db.allEjercicios())
+        op = input("->")
+        try:
+            if(int(op) in range(1,self.db.cantidadRegistros('ejercicio')+1)):
+                self.insertSerie(op)
+                self.ejerciciosTodos()
+        except:
+            if(op == 'add'):
+                self.db.insertEjercicio(input('Nombre:'),getGrupoMuscular(),obtenerDiaSemana(input('Día:')),input('Descanso(min):'))
+                self.ejerciciosTodos()
+            elif(op == 'back'):
+                self.inicioBanner()
+            else:
+                self.ejerciciosTodos()
+    def ejerciciosHoy(self):
+        listEjerciciosHoy=self.db.self.ejerciciosHoy(self.hoy)
+        printEjerciciosHoy(listEjerciciosHoy)
+        op = input("->")
+        try:
+            if(int(op) in self.db.idsEjerciciosHoy(self.hoy)):
+                self.insertSerie(op)
+                self.ejerciciosHoy()
+        except:
+            if(op == 'add'):
+                self.db.insertEjercicio(input('Nombre:'),getGrupoMuscular(),self.hoy,input('Descanso(min):'))
+                self.ejerciciosHoy()
+            elif(op == 'back'):
+                self.inicioBanner()
+            else:
+                self.ejerciciosHoy()
+    def insertSerie(self,op):
+        clear()
+        while True:
+            reps = int(input('rep:'))
+            peso = int(input('Kgs:'))
+            self.db.self.insertSerie(op,reps,peso)
+            if(input('continue? :')=='Y'):
+                pass
+            else:
+                break
+def main():
+    Main().inicioBanner()
+if __name__ == '__main__':
+    main()
