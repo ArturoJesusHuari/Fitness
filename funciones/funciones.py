@@ -2,7 +2,7 @@ from colorama import *
 from os import system
 listaGruposMusculares = ['Brazos y antebrazos','Hombros','Pectorales','Espalda','Piernas','Glúteos','Abdominales']
 def clear():
-    system("cls")
+    system("clear")
 def getGrupoMuscular():
     for index in range(0,len(listaGruposMusculares)):
         print('['+str(index)+'] '+listaGruposMusculares[index])

@@ -1,16 +1,9 @@
 from funciones import *
+
 db = DataBase()
 db.connect()
 db.createTables()
 hoy = obtenerDiaSemanaHoy()
-#db.insertEjercicio('Press de banca',2,2,2)
-#db.insertEjercicio('Curl de biseps',0,2,2)
-#db.deleteEjercicio(1)
-#db.insertSerie(1,15,20)
-#db.insertRepeticiones(15,30,1)
-#print(db.listGruposMusculares())
-#print(db.cantidadRegistros('ejercicio'))
-#db.closeConexion()
 def inicioBanner():
     printBannerInicio()
     op = int(input("->"))
@@ -48,8 +41,8 @@ def ejerciciosHoy():
             db.insertEjercicio(input('Nombre:'),getGrupoMuscular(),hoy,input('Descanso(min):'))
         elif(op == 'back'):
             inicioBanner()
-    finally:
-        ejerciciosHoy()
+        else:
+            ejerciciosHoy()
 def insertSerie(op):
     clear()
     while True:
