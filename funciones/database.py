@@ -105,6 +105,6 @@ class DataBase:
                 if(grupo[0]==ejercicios):
                     grupoText+='['+str(ejercicios[0])+'].'+str(ejercicios[1])+'\t\t'+str(numToDia(ejercicios[2]))
                 else:
-                    grupoText+='\n['+str(ejercicios[0])+'].'+str(ejercicios[1])
+                    grupoText+='\n['+str(ejercicios[0])+'].'+str(ejercicios[1])+'\t\t'+str(numToDia(ejercicios[2]))
             allEjercicios.append(grupoText)
         return allEjercicios

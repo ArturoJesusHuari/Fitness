@@ -16,7 +16,7 @@ def printEjerciciosHoy(lista):
         print('No hay ejercicios para hoy')
 def printVerEjercicios(lista):
     clear()
-    if(len(lista)>0):
+    if(lista[0]!='' or lista[1]!='' or lista[2]!='' or lista[3]!='' or lista[4]!='' or lista[5]!='' or lista[6]!=''):
         for grup in range(0,7):
             if(lista[grup]!=''):
                 print(Fore.RED + listaGruposMusculares[grup] + Fore.RESET)
