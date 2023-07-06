@@ -20,18 +20,13 @@ class Main:
     def ejerciciosTodos(self):
         printVerEjercicios(self.db.allEjercicios())
         op = input("->")
-        try:
-            if(int(op) in range(1,self.db.cantidadRegistros('ejercicio')+1)):
-                self.insertSerie(op)
-                self.ejerciciosTodos()
-        except:
-            if(op == 'add'):
-                self.db.insertEjercicio(input('Nombre:'),getGrupoMuscular(),obtenerDiaSemana(input('Día:')),input('Descanso(min):'))
-                self.ejerciciosTodos()
-            elif(op == 'back'):
-                self.inicioBanner()
-            else:
-                self.ejerciciosTodos()
+        if(op == 'add'):
+            self.db.insertEjercicio(input('Nombre:'),getGrupoMuscular(),obtenerDiaSemana(input('Día:')),input('Descanso(min):'))
+            self.ejerciciosTodos()
+        elif(op == 'back'):
+            self.inicioBanner()
+        else:
+            self.ejerciciosTodos()
     def ejerciciosHoy(self):
         listEjerciciosHoy=self.db.ejerciciosHoy(self.hoy)
         printEjerciciosHoy(listEjerciciosHoy)

@@ -1,5 +1,6 @@
 import sqlite3
 from datetime import datetime
+from .diaSemana import numToDia
 class DataBase:
     def __init__(self):
         now = datetime.now()
@@ -88,17 +89,21 @@ class DataBase:
         ejerciciosHoy=[]
         listEjerciciosHoy = self.listSelect(f"SELECT id_ejercicio,nombre FROM ejercicio WHERE dia={today}")
         for EjercicioHoy in listEjerciciosHoy:
-            grupoText='['+str(EjercicioHoy[0])+'].'+str(EjercicioHoy[1])
+            cantSeriesHoy = self.conexion.execute(f"SELECT COUNT(id_serie) FROM serie WHERE id_ejercicio = {str(EjercicioHoy[0])}").fetchone()[0]
+            if(cantSeriesHoy>0):
+                grupoText='['+str(EjercicioHoy[0])+'].'+str(EjercicioHoy[1])+'\t\t Series completadas: '+str(cantSeriesHoy)
+            else:
+                grupoText='['+str(EjercicioHoy[0])+'].'+str(EjercicioHoy[1]+'\t\t No iniciado')
             ejerciciosHoy.append(grupoText)
         return ejerciciosHoy 
     def allEjercicios(self):
         allEjercicios=[]
         for grupos in range(0,7):
             grupoText=''
-            grupo = self.listSelect(f"SELECT id_ejercicio,nombre FROM ejercicio WHERE grupoMuscular={grupos}")
+            grupo = self.listSelect(f"SELECT id_ejercicio,nombre,dia FROM ejercicio WHERE grupoMuscular={grupos}")
             for ejercicios in grupo:
                 if(grupo[0]==ejercicios):
-                    grupoText+='['+str(ejercicios[0])+'].'+str(ejercicios[1])
+                    grupoText+='['+str(ejercicios[0])+'].'+str(ejercicios[1])+'\t\t'+str(numToDia(ejercicios[2]))
                 else:
                     grupoText+='\n['+str(ejercicios[0])+'].'+str(ejercicios[1])
             allEjercicios.append(grupoText)

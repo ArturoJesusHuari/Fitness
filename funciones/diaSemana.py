@@ -19,3 +19,20 @@ def obtenerDiaSemana(dia):
         return 7
     else:
         return 0
+def numToDia(_int):
+    if(_int==1):
+        return 'Lunes'
+    elif(_int==2):
+        return 'Martes'
+    elif(_int==3):
+        return 'Miercoles'
+    elif(_int==4):
+        return 'Jueves'
+    elif(_int==5):
+        return 'Viernes'
+    elif(_int==6):
+        return 'Sabado'
+    elif(_int==7):
+        return 'Domingo'
+    else:
+        return 0
