@@ -12,11 +12,25 @@ class Main:
             self.ejerciciosHoy()
         elif(op==2):
             self.ejerciciosTodos()
-        elif(op==4):
-            self.db.closeConexion
+        elif(op==3):
+            self.delEjercicio()
+        elif(op==5):
+            self.db.closeConexion()
             exit()
         else:
             self.inicioBanner()
+    def delEjercicio(self):
+        printVerEjercicios(self.db.allEjercicios())
+        op = input("->")
+        try:
+            if(int(op) in self.db.idsAllEjercicios()):
+                self.db.deleteEjercicio(op)
+                self.delEjercicio()
+        except:
+            if(op == 'back'):
+                self.inicioBanner()
+            else:
+                self.delEjercicio()
     def ejerciciosTodos(self):
         printVerEjercicios(self.db.allEjercicios())
         op = input("->")

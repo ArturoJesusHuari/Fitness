@@ -35,6 +35,7 @@ def printBannerInicio():
     inicioOpciones = """
     [1].Ejercicios de hoy
     [2].Todos los ejercicios
-    [3].Estadisticas
-    [4].Salir"""
+    [3].Borrar ejercicio
+    [4].Estadisticas
+    [5].Salir"""
     print(Fore.CYAN + inicioBanner + Fore.RESET + inicioOpciones )

@@ -1,3 +1,4 @@
+from colorama import *
 import sqlite3
 from datetime import datetime
 from .diaSemana import numToDia
@@ -56,7 +57,6 @@ class DataBase:
         except:
             pass
         self.conexion.execute(f"DELETE FROM ejercicio WHERE id_ejercicio = {id_ejercicio};")
-        print('nn')
         self.actualizar('ejercicio')
     def deleteSerie(self,id_serie):
         self.conexion.execute(f"DELETE FROM serie WHERE id_ejercicio = {id_serie};")
@@ -79,6 +79,12 @@ class DataBase:
     def cantidadRegistrosCondicion(self,table,condicion):
         cantidad = self.conexion.execute(f"SELECT COUNT(id_{table}) FROM {table} WHERE {condicion}")
         return cantidad.fetchone()[0]
+    def idsAllEjercicios(self):
+        idsAllEjercicios=[]
+        listAllEjercicios = self.listSelect(f"SELECT id_ejercicio FROM ejercicio")
+        for id_ejercicio in listAllEjercicios:
+            idsAllEjercicios.append(int(id_ejercicio[0]))
+        return idsAllEjercicios
     def idsEjerciciosHoy(self,today):
         idsEjerciciosHoy=[]
         listEjerciciosHoy = self.listSelect(f"SELECT id_ejercicio FROM ejercicio WHERE dia={today}")
@@ -103,8 +109,13 @@ class DataBase:
             grupo = self.listSelect(f"SELECT id_ejercicio,nombre,dia FROM ejercicio WHERE grupoMuscular={grupos}")
             for ejercicios in grupo:
                 if(grupo[0]==ejercicios):
-                    grupoText+='['+str(ejercicios[0])+'].'+str(ejercicios[1])+'\t\t'+str(numToDia(ejercicios[2]))
+                    grupoText+=self.tabInfo('['+str(ejercicios[0])+'].'+str(ejercicios[1]),str(numToDia(ejercicios[2])))
                 else:
-                    grupoText+='\n['+str(ejercicios[0])+'].'+str(ejercicios[1])+'\t\t'+str(numToDia(ejercicios[2]))
+                    grupoText+='\n'
+                    grupoText+=self.tabInfo('['+str(ejercicios[0])+'].'+str(ejercicios[1]),str(numToDia(ejercicios[2])))
             allEjercicios.append(grupoText)
         return allEjercicios
+    def tabInfo(self,description,info):
+        while(len(description)!=48):
+            description+=" "
+        return description+Fore.BLUE+info+Fore.RESET
