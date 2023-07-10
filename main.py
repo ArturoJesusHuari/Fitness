@@ -16,6 +16,7 @@ class Main:
             self.delEjercicio()
         elif(op==5):
             self.db.closeConexion()
+            system("cd ..")
             exit()
         else:
             self.inicioBanner()
