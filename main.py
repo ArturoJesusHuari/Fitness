@@ -7,24 +7,30 @@ class Main:
         self.hoy = obtenerDiaSemanaHoy()
     def inicioBanner(self):
         printBannerInicio()
-        op = int(input("->"))
-        if(op==1):
-            self.ejerciciosHoy()
-        elif(op==2):
-            self.ejerciciosTodos()
-        elif(op==3):
-            self.delEjercicio()
-        elif(op==5):
+        try:
+            op = int(input("->"))
+            if(op==1):
+                self.ejerciciosHoy()
+            elif(op==2):
+                self.ejerciciosTodos()
+            elif(op==3):
+                self.delEjercicio()
+            elif(op==5):
+                self.db.closeConexion()
+                exit()
+            else:
+                self.inicioBanner()
+        except:
             self.db.closeConexion()
             exit()
-        else:
-            self.inicioBanner()
     def delEjercicio(self):
         printVerEjercicios(self.db.allEjercicios())
         op = input("->")
         try:
             if(int(op) in self.db.idsAllEjercicios()):
                 self.db.deleteEjercicio(op)
+                self.delEjercicio()
+            else:
                 self.delEjercicio()
         except:
             if(op == 'back'):

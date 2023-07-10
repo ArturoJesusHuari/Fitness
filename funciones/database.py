@@ -56,6 +56,8 @@ class DataBase:
                 self.deleteSerie(serie[0])
         except:
             pass
+        finally:
+            self.conexion.commit()
         self.conexion.execute(f"DELETE FROM ejercicio WHERE id_ejercicio = {id_ejercicio};")
         self.actualizar('ejercicio')
     def deleteSerie(self,id_serie):
