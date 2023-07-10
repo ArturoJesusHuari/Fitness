@@ -96,10 +96,11 @@ class DataBase:
         listEjerciciosHoy = self.listSelect(f"SELECT id_ejercicio,nombre FROM ejercicio WHERE dia={today}")
         for EjercicioHoy in listEjerciciosHoy:
             cantSeriesHoy = self.conexion.execute(f"SELECT COUNT(id_serie) FROM serie WHERE id_ejercicio = {str(EjercicioHoy[0])}").fetchone()[0]
+            grupoText=''
             if(cantSeriesHoy>0):
-                grupoText='['+str(EjercicioHoy[0])+'].'+str(EjercicioHoy[1])+'\t\t Series completadas: '+str(cantSeriesHoy)
+                grupoText+=self.tabInfo('['+str(EjercicioHoy[0])+'].'+str(EjercicioHoy[1]),'Series completadas: '+str(cantSeriesHoy))
             else:
-                grupoText='['+str(EjercicioHoy[0])+'].'+str(EjercicioHoy[1]+'\t\t No iniciado')
+                grupoText+=self.tabInfo('['+str(EjercicioHoy[0])+'].'+str(EjercicioHoy[1]),'No iniciado')
             ejerciciosHoy.append(grupoText)
         return ejerciciosHoy 
     def allEjercicios(self):
