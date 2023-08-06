@@ -15,6 +15,8 @@ class Main:
                 self.ejerciciosTodos()
             elif(op==3):
                 self.delEjercicio()
+            elif(op==4):
+                self.estadisticasEjercicios()
             elif(op==5):
                 self.db.closeConexion()
                 exit()
@@ -23,6 +25,13 @@ class Main:
         except:
             self.db.closeConexion()
             exit()
+    def estadisticasEjercicios(self):
+        printVerEstadisticas(self.db.estadisticas())
+        op = input("->")
+        if(op == 'back'):
+            self.inicioBanner()
+        else:
+            self.estadisticasEjercicios()
     def delEjercicio(self):
         printVerEjercicios(self.db.allEjercicios())
         op = input("->")

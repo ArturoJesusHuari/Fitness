@@ -118,6 +118,23 @@ class DataBase:
                     grupoText+=self.tabInfo('['+str(ejercicios[0])+'].'+str(ejercicios[1]),str(numToDia(ejercicios[2])))
             allEjercicios.append(grupoText)
         return allEjercicios
+    def estadisticas(self):
+        estadisticas_=[]
+        allEjercicios = self.listSelect(f"SELECT id_ejercicio,nombre FROM ejercicio")
+        for ejercicio in allEjercicios:
+            fechas = self.listSelect(f"SELECT fecha FROM serie WHERE id_ejercicio = {ejercicio[0]}")
+            if(len(fechas)>0):
+                info = self.listSelect(f"SELECT repeticiones,peso FROM serie WHERE fecha = '{fechas[-1][0]}'")
+                sumReps = 0
+                sumPeso = 0
+                for reps,peso in info:
+                    sumReps+=reps
+                    sumPeso+=peso*reps
+                promedio = round(sumPeso/sumReps,2)
+                estadisticas_.append(self.tabInfo('['+str(ejercicio[0])+'].'+str(ejercicio[1]),str(promedio)))
+            else:
+                estadisticas_.append(self.tabInfo('['+str(ejercicio[0])+'].'+str(ejercicio[1]),"0"))
+        return estadisticas_
     def tabInfo(self,description,info):
         while(len(description)!=48):
             description+=" "
